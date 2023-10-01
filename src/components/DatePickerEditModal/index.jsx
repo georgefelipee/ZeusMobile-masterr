@@ -4,7 +4,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 
-export default function DatePicker({dataParaCalendario, setdataParaCalendario,
+export default function DatePickerEditModal({DataParaOCalendario,setDataParaOCalendario,setDataParaInput, setdataParaCalendario,
     isDatePickerVisible,
     hideDatePicker,
     setDataSelecionada,dataSelecionada,open,setOpen,setDataParaEnvio,display,styles}) {
@@ -19,13 +19,15 @@ export default function DatePicker({dataParaCalendario, setdataParaCalendario,
   
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate;
-    setdataParaCalendario(currentDate)
+    setDataParaOCalendario(currentDate)
+    console.log("data sem nadaaa",currentDate);
     const dataFormatada = format(selectedDate,'dd/MM/yyyy',{
        locale:ptBR
     })
     //const dateFormated = formatDate(currentDate)
     console.log(dataFormatada);
     setOpen(false);
+    setDataParaInput(dataFormatada)
     setDataSelecionada(dataFormatada);
   };
  
@@ -35,9 +37,9 @@ export default function DatePicker({dataParaCalendario, setdataParaCalendario,
             <DateTimePicker
                 display={display}
                 style={styles}
-                locale='pt-BR'
-                value={dataParaCalendario}
+                value={DataParaOCalendario}
                 mode={mode}
+                locale={'pt'}   
                 maximumDate={date}
                 onChange={onChange}
                 dateFormat={"day month year"}

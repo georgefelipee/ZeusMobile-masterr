@@ -35,7 +35,10 @@ export default function HistoryTela() {
       .then((response) => {
 
         const dados = response.data
-        pegarMeses(dados)
+
+        const ComprasAnoEspecifico = filtrarComprasPorAno(dados,2023)
+
+        pegarMeses(ComprasAnoEspecifico)
 
         const comprasPeriodoEspecifico = ComprasPeriodoEspecifico(selectedValue, dados)
         // const arrayOrdenado = comprasPeriodoEspecifico.sort((a, b) => new Date(b.data) - new Date(a.data));
@@ -56,6 +59,15 @@ export default function HistoryTela() {
 
   }, [selectedValue])
 
+ function filtrarComprasPorAno(dados, anoDesejado) {
+    return dados.filter((compra) => {
+      const dataString = compra.data;
+      const data = new Date(dataString);
+      const anoCompra = data.getUTCFullYear(); // Obter o ano da compra
+  
+      return anoCompra === Number(anoDesejado);
+    });
+  }
 
   function pegarMeses(dados) {
     const timeZone = 'America/Sao_Paulo'

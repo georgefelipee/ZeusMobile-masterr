@@ -4,6 +4,7 @@ import Icon from "react-native-vector-icons/AntDesign";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 import Toast from "react-native-toast-message";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 export const AddTela = () => {
   const navigation = useNavigation();
@@ -12,17 +13,9 @@ export const AddTela = () => {
     navigation.goBack();
   }
 
-  function mostrartost(){
-     Toast.setRef(ref);
-  }
   return (
-    <>
-      <View style={styles.container}>
-        <Toast 
-          ref={(ref) => {
-            mostrartost()
-          }}
-        />
+    <View style={styles.container}>
+      <KeyboardAwareScrollView  style={{ flex: 1 }}>
         <View style={styles.containerButton}>
           <TouchableOpacity onPress={handleGoBack} style={styles.button}>
             <Icon name="left" size={32} color="#C97C37" />
@@ -37,8 +30,8 @@ export const AddTela = () => {
             </SafeAreaView>
           </View>
         </View>
-      </View>
-    </>
+      </KeyboardAwareScrollView>
+    </View>
   );
 };
 

@@ -7,6 +7,7 @@ import api from '../../../services/api.js'
 import LottieView from 'lottie-react-native'
 import animationDados from '../../assets/gifs/lupinha.json'
 import { useFocusEffect } from "@react-navigation/native";
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const {width} = Dimensions.get('window')
 
@@ -101,10 +102,19 @@ export const Carousel = ({data,navigation,gastos30Dias,testeDatas}) =>{
     
         return (
         <View style={[styles.item, {backgroundColor}]}>
-            <Text  style={styles.text} >{item.nomeRacao} </Text>
-            <Text style={styles.textKg} >{Number(item.quantidade).toFixed(2)} Kg</Text>
+            <View style={{display:'flex', flexDirection:'row', marginLeft:10}}>
+                <Icon name="paw" size={18} color="#FFF" style={styles.icone} />
+                <Text  style={styles.text} >{item.nomeRacao} </Text>
+            </View>
+            <View style={{display:'flex', flexDirection:'row', marginLeft:8,marginTop:5}}>
+                 <Icon name="balance-scale" size={17} color="#FFF" style={styles.Balance} />
+                <Text style={styles.textKg} >{Number(item.quantidade).toFixed(2)} Kg</Text>
+            </View>
             <View style={styles.cardContainerPreco}> 
-             <Text style={styles.textTotalGasto} >R$  {Number(item.totalGasto).toFixed(2)} </Text>
+                <View  style={{display:'flex', flexDirection:'row', marginLeft:10}}>
+                     <Icon name="money" size={17} color="#FFF" style={styles.Balance} />
+                    <Text style={styles.textTotalGasto} >R$  {Number(item.totalGasto).toFixed(2)} </Text>
+                </View>
              <Text style={styles.textDate} >{ formatarData(data)} </Text>
             </View>
          </View>
@@ -173,8 +183,8 @@ export const Carousel = ({data,navigation,gastos30Dias,testeDatas}) =>{
 
 const styles = StyleSheet.create({
     item: {
-      paddingTop:3,
-      paddingBottom:3,
+      paddingTop:8,
+      paddingBottom:8,
       borderRadius:5,
       marginTop:24,
       borderBottomWidth: 1,
@@ -197,7 +207,7 @@ const styles = StyleSheet.create({
     },textKg:{
         fontFamily:'Inter-Regular',
         color:'#FFF',
-        marginLeft:10,
+        marginLeft:7,
         marginBottom:4
     },textDate:{
         fontFamily:'Inter-Regular',
@@ -206,8 +216,9 @@ const styles = StyleSheet.create({
     cardContainerPreco:{
         display:'flex',
         flexDirection:'row',
-        gap:36,
-        paddingBottom:4
+        gap:28,
+        paddingBottom:4,
+        marginTop:5
     },carroselVisual:{
         paddingTop:20,
         alignSelf:'center'

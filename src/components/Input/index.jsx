@@ -25,13 +25,15 @@ import Toast from "react-native-toast-message";
 
 export const InputNew = ({}) => {
   const [open, setOpen] = useState(false); //DatePicker
-  const [dataSelecionada, setDataSelecionada] = useState();
+  const [dataSelecionada, setDataSelecionada] = useState(new Date());
   const [dataParaEnvio, setDataParaEnvio] = useState(new Date());
   const [modeData, setModeData] = useState("date");
 
   const [totalGasto, setTotalGasto] = useState("");
   const [quantidade, setQuantidade] = useState("");
   const [nomeRacao, setnomeRacao] = useState("");
+
+  const [dataParaCalendario, setdataParaCalendario] = useState(new Date())
 
   const [gastoObjeto, setGastoObjeto] = useState({});
 
@@ -67,6 +69,7 @@ export const InputNew = ({}) => {
 
   const handleInputChangeNomeRacao = (text) => {
     setnomeRacao(text);
+    hideDateTimePicker()
     console.log(text);
   };
 
@@ -170,6 +173,7 @@ export const InputNew = ({}) => {
           <Icon style={styles.icon} size={26} name="dog" />
           <TextInput
             placeholderTextColor={"#788794"}
+            onPressOut={hideDateTimePicker}
             onChangeText={handleInputChangeNomeRacao}
             underlineColorAndroid="transparent"
             placeholder="Nome da ração"
@@ -180,8 +184,9 @@ export const InputNew = ({}) => {
         <View style={styles.container}>
           <Balance style={styles.iconBalance} size={22} name="balance-scale" />
           <TextInputMask
+             onPressOut={hideDateTimePicker}
             placeholderTextColor={"#788794"}
-            placeholder="Quantidade em Kg"
+            placeholder="Quantidade Total em Kg"
             style={styles.input}
             type={"money"}
             options={{
@@ -228,7 +233,7 @@ export const InputNew = ({}) => {
             name="calendar-outline"
           />
           <TextInput
-            style={{ height: 50, fontSize: 18 }}
+            style={{ height: 50, fontSize: 18,marginLeft:12 }}
             value={dataSelecionada}
             editable={false}
             inputMode="none"
@@ -257,6 +262,8 @@ export const InputNew = ({}) => {
                   setDataSelecionada={setDataSelecionada}
                   hideDateTimePicker={hideDateTimePicker}
                   showDateTimePicker={showDateTimePicker}
+                  dataParaCalendario={dataParaCalendario}
+                  setdataParaCalendario={setdataParaCalendario}
                 />
               </View>
             ))}
@@ -341,6 +348,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     borderRadius: 8,
     borderWidth: 0,
+    marginLeft:8
   },
   container: {
     width: "100%",

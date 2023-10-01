@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
        
     }, 
     card:{
-        
+      marginBottom:20,   
 
     },cardTitle:{
         fontSize: 20,

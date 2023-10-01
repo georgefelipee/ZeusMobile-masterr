@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     position: 'absolute',
-    left: 170
+    left: 190
 
   }, iconeRemove: {
     marginLeft: 6
