@@ -12,14 +12,15 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 const {width} = Dimensions.get('window')
 
 export const Carousel = ({data,navigation,gastos30Dias,testeDatas}) =>{
-    const lottieRef = React.useRef(null);
+
     const [activeBanner, setActiveBanner] = useState(0)
     const [gastos, setGastos] = useState([]);
     const [loading, setLoading] = useState(true);
+    
     console.ignoredYellowBox = ['Sending `onAnimatedValueUpdate` with no listeners registered.'];
     
+   const  animationRef = useRef(null)
    
-
     const viewabilityConfigCallbackPairs = useRef([
         {
             
@@ -50,6 +51,13 @@ export const Carousel = ({data,navigation,gastos30Dias,testeDatas}) =>{
                 })
         
       }, []); 
+
+      useEffect(() => {
+        
+        animationRef.current?.play(30,120)
+       
+      }, [])
+      
       
       const onTelaEntrouEmFoco = () => {
         // Coloque aqui as ações que deseja executar quando a tela entra em foco
@@ -135,9 +143,10 @@ export const Carousel = ({data,navigation,gastos30Dias,testeDatas}) =>{
             <Text style={{ marginTop: 50,fontFamily:'Inter-SemiBold',fontSize:16 }}>Ops, você ainda não cadastrou nada!</Text>
             <LottieView
             source={animationDados}
-            autoPlay
-            loop
-            ref={lottieRef}
+            autoPlay={true}
+            ref={animationRef}
+            loop={true}
+            onAnimationFinish={() => {}}
             style={{ width: 80, height: 80 }} // Defina o tamanho desejado aqui
             />
       </View> ) : (

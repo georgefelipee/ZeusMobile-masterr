@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, TextInput, SafeAreaView, ScrollView } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Icon from 'react-native-vector-icons/AntDesign';
 import IconSearch from 'react-native-vector-icons/FontAwesome';
 import HistoricoCards from '../../components/HistoricoCards';
@@ -11,10 +11,14 @@ import { useNavigation } from '@react-navigation/native';
 import { isSameMonth, parse, parseISO } from 'date-fns';
 import utcToZonedTime from 'date-fns-tz/utcToZonedTime/index.js';
 import ptBR from 'date-fns/esm/locale/pt-BR/index.js';
+import LottieView from 'lottie-react-native'
+import animationDados from '../../assets/gifs/lupinha.json'
 
 
 
 export default function HistoryTela() {
+
+  const  animationRef = useRef(null)
 
   const [mesesDisponiveis, setMesesDisponiveis] = useState([]);
 
@@ -25,6 +29,8 @@ export default function HistoryTela() {
   const [gastosForMonths, setGastosForMonths] = useState([]);
 
   const navigation = useNavigation()
+
+
 
   function handleGoBack() {
     navigation.goBack()
@@ -40,7 +46,7 @@ export default function HistoryTela() {
 
         pegarMeses(ComprasAnoEspecifico)
 
-        const comprasPeriodoEspecifico = ComprasPeriodoEspecifico(selectedValue, dados)
+        const comprasPeriodoEspecifico = ComprasPeriodoEspecifico(selectedValue, ComprasAnoEspecifico)
         // const arrayOrdenado = comprasPeriodoEspecifico.sort((a, b) => new Date(b.data) - new Date(a.data));
         // const arrayFormatado = formatarDatasNoArray(comprasPeriodoEspecifico)
 
@@ -58,6 +64,13 @@ export default function HistoryTela() {
     pegarGastos();
 
   }, [selectedValue])
+
+  useEffect(() => {
+
+    animationRef.current?.play(30,120)
+
+  }, [])
+  
 
  function filtrarComprasPorAno(dados, anoDesejado) {
     return dados.filter((compra) => {
@@ -233,7 +246,17 @@ export default function HistoryTela() {
       <SafeAreaView>
         <View style={{ height: '75%' }}>
 
-          <ScrollView >
+          {gastos.length == 0 ? (  <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <Text style={{ marginTop: 50,fontFamily:'Inter-SemiBold',fontSize:16 }}>Ops, não encontramos nada!</Text>
+            <LottieView
+            source={animationDados}
+            autoPlay
+            loop
+            onAnimationFinish={() => {}}
+            ref={animationRef}
+            style={{ width: 80, height: 80 }} // Defina o tamanho desejado aqui
+            />
+      </View> ) : ( <ScrollView >
             {gastos.map((item) => (<HistoricoCards key={item._id}
               id={item._id}
               nomeRacao={item.nomeRacao}
@@ -244,7 +267,8 @@ export default function HistoryTela() {
               pegarGastos={pegarGastos}
               navigation={navigation}
             />))}
-          </ScrollView>
+          </ScrollView>)}
+         
         </View>
 
 

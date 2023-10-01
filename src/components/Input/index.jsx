@@ -39,6 +39,7 @@ export const InputNew = ({}) => {
 
   const moneyFieldRef = useRef(null);
 
+
   useEffect(() => {
     const dataAtual = new Date();
 
@@ -48,12 +49,10 @@ export const InputNew = ({}) => {
 
     var dataFormatada = `${dia}/${mes}/${ano}`;
 
-    setDataSelecionada(dataFormatada);
+    setDataSelecionada(dataFormatada.toString());
   }, []);
 
-  const mostrarSnackbar = () => {
-    setSnackbarVisible(true);
-  };
+  
 
   const showDateTimePicker = () => {
     setOpen(true);
@@ -119,6 +118,16 @@ export const InputNew = ({}) => {
         dataFormatoCerto.getUTCDate()
       )
     );
+    if(nomeRacao == ""){
+      alert("Preencha os campos ! ")
+      setnomeRacao("")
+      return
+    }
+    if(totalGasto == ""){
+      alert("Preencha os campos ! ")
+      setTotalGasto("")
+      return
+    }
 
     // Some 1 dia à data
     const dataAjustada = addDays(dataSemFusoHorario, 1);
@@ -205,7 +214,7 @@ export const InputNew = ({}) => {
           <Money style={styles.iconMoney} size={32} name="attach-money" />
           <TextInputMask
             placeholderTextColor={"#788794"}
-            placeholder="Digite o valor R$"
+            placeholder="Digite o valor total R$"
             style={styles.input}
             type={"money"}
             options={{

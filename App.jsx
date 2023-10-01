@@ -9,12 +9,17 @@ import { Button, StyleSheet, Text, View } from 'react-native';
 import { Home } from './src/screen/Home';
 import { useEffect, useState } from 'react';
 import Toast from 'react-native-toast-message';
-
+import { AppRegistry, LogBox } from 'react-native';
 //telas
 import AppNavigationContainer from './AppNavigationContainer.jsx'
 import {AddTela} from './src/screen/AddTela/index.jsx';
 import HistoryTela from './src/screen/HistoryTela';
+import { name as appName } from './app.json';
 
+
+LogBox.ignoreLogs(['Sending `onAnimatedValueUpdate` with no listeners registered.'])
+LogBox.ignoreLogs(['Failed prop type: Invalid prop `value` of type `date` supplied to `TextInput`, expected `string`.'])
+AppRegistry.registerComponent(appName, () => App);
 export default function App() {
 
 
